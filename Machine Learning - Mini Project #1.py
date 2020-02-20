@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[123]:
+# In[35]:
 
 
 import numpy as np
@@ -12,15 +12,12 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Step 2: Assign Universe
-financial_standing_ = ctrl.Antecedent(np.arange(0, 11, 1), 'financial_standing')
+financial_standing = ctrl.Antecedent(np.arange(0, 11, 1), 'financial_standing')
 political_stance = ctrl.Antecedent(np.arange(0, 11, 1), 'political_stance')
 career_experience = ctrl.Antecedent(np.arange(0, 11, 1), 'career_experience')
 financial_standing_B = ctrl.Antecedent(np.arange(0, 11, 1), 'financial_standing_B')
 political_stance_B = ctrl.Antecedent(np.arange(0, 11, 1), 'political_stance_B')
 career_experience_B = ctrl.Antecedent(np.arange(0, 11, 1), 'career_experience_B')
-# compatibility_fs = ctrl.Consequent(np.arange(0, 11, 1), 'compatibility_fs')
-# compatibility_ps = ctrl.Consequent(np.arange(0, 11, 1), 'compatibility_ps')
-# compatibility_ce = ctrl.Consequent(np.arange(0, 11, 1), 'compatibility_ce')
 compatibility = ctrl.Consequent(np.arange(0, 11, 1), 'compatibility')
 
 # Step 2: Assign Membership Functions
@@ -48,30 +45,21 @@ career_experience_B['novice'] = fuzz.trimf(career_experience.universe, [0, 0, 4]
 career_experience_B['intermediate'] = fuzz.trimf(career_experience.universe, [3, 5, 8])
 career_experience_B['expert'] = fuzz.trimf(career_experience.universe, [6, 10, 10])
 
-# compatibility_fs['low'] = fuzz.trimf(compatibility.universe, [0, 0, 5])
-# compatibility_fs['medium'] = fuzz.trimf(compatibility.universe, [0, 5, 10])
-# compatibility_fs['high'] = fuzz.trimf(compatibility.universe, [5, 10, 10])
-
-# compatibility_ps['low'] = fuzz.trimf(compatibility.universe, [0, 0, 5])
-# compatibility_ps['medium'] = fuzz.trimf(compatibility.universe, [0, 5, 10])
-# compatibility_ps['high'] = fuzz.trimf(compatibility.universe, [5, 10, 10])
-
-# compatibility_ce['low'] = fuzz.trimf(compatibility.universe, [0, 0, 5])
-# compatibility_ce['medium'] = fuzz.trimf(compatibility.universe, [0, 5, 10])
-# compatibility_ce['high'] = fuzz.trimf(compatibility.universe, [5, 10, 10])
-
 compatibility['low'] = fuzz.trimf(compatibility.universe, [0, 0, 5])
 compatibility['medium'] = fuzz.trimf(compatibility.universe, [0, 5, 10])
 compatibility['high'] = fuzz.trimf(compatibility.universe, [5, 10, 10])
 
 
-# In[124]:
+# In[36]:
 
 
+financial_standing.view()
+political_stance.view()
 career_experience.view()
+compatibility.view()
 
 
-# In[134]:
+# In[37]:
 
 
 # Step 3: Fuzzy Rules for Compatibility based on Financial Standing
@@ -114,42 +102,32 @@ rule6_ce = ctrl.Rule(career_experience['intermediate'] & career_experience_B['in
 career_experience_ctrl = ctrl.ControlSystem([rule1_ce, rule2_ce, rule3_ce, rule4_ce, rule5_ce, rule6_ce])
 career_experience_compatibility = ctrl.ControlSystemSimulation(career_experience_ctrl)
 
-# # Step 3: Fuzzy Rules for Overall Compatibility
-# rule1_oc = ctrl.Rule(compatibility_fs['low'] & compatibility_ps['low'], compatibility['low'])
 
-# rule5_oc = ctrl.Rule(compatibility_ps['medium'] & compatibility_ce['medium'], compatibility['medium'])
-
-# rule9_oc = ctrl.Rule(compatibility_ce['high'] & compatibility_fs['high'], compatibility['high'])
-
-# overall_compatibility_ctrl = ctrl.ControlSystem([rule1_oc, rule5_oc, rule9_oc])
-# overall_compatibility_compatibility = ctrl.ControlSystemSimulation(overall_compatibility_ctrl)
-
-
-# In[136]:
+# In[38]:
 
 
 # Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
 # Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
 financial_standing_compatibility.input['financial_standing'] = 5
-financial_standing_compatibility.input['financial_standing_B'] = 8
+financial_standing_compatibility.input['financial_standing_B'] = 6
 
 # Crunch the numbers
 financial_standing_compatibility.compute()
 
 political_stance_compatibility.input['political_stance'] = 3
-political_stance_compatibility.input['political_stance_B'] = 4
+political_stance_compatibility.input['political_stance_B'] = 2
 
 # Crunch the numbers
 political_stance_compatibility.compute()
 
-career_experience_compatibility.input['career_experience'] = 2
-career_experience_compatibility.input['career_experience_B'] = 2
+career_experience_compatibility.input['career_experience'] = 8
+career_experience_compatibility.input['career_experience_B'] = 9
 
 # Crunch the numbers
 career_experience_compatibility.compute()
 
 
-# In[137]:
+# In[39]:
 
 
 print("Financial Compatibility", financial_standing_compatibility.output['compatibility'])
@@ -160,10 +138,4 @@ compatibility.view(sim=political_stance_compatibility)
 
 print("Career Compatibility", career_experience_compatibility.output['compatibility'])
 compatibility.view(sim=career_experience_compatibility)
-
-
-# In[ ]:
-
-
-
 
