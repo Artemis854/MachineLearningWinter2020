@@ -30,7 +30,7 @@ class Chromosome {
   }
 
   // Converts character array to a String
-  getSolution() {
+  getChromosome() {
     return "[" + this.genes.toString() + "]";
   }
 

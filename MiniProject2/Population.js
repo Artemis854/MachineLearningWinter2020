@@ -84,10 +84,14 @@ class Population {
       }
     }
 
-    this.best = this.population[index].getSolution();
+    this.best = this.population[index].getChromosome();
     if (worldrecord === this.perfectScore) {
       this.finished = true;
     }
+  }
+
+  setFinished(value) {
+    this.finished = value;
   }
 
   isFinished() {
@@ -96,6 +100,10 @@ class Population {
 
   getGenerations() {
     return this.generations;
+  }
+
+  getBest() {
+    return this.best;
   }
 
   // Compute average fitness for the population
@@ -107,14 +115,14 @@ class Population {
     return total / (this.population.length);
   }
 
-  allSolutions() {
+  allChromosomes() {
     let everything = "";
 
     let displayLimit = min(this.population.length, 50);
 
 
     for (let i = 0; i < displayLimit; i++) {
-      everything += this.population[i].getSolution() + "<br>";
+      everything += this.population[i].getChromosome() + "<br>";
     }
     return everything;
   }
