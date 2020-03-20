@@ -4,6 +4,9 @@ const rows = 9;
 var number = [];
 const numbersData = new numberManager(6);
 
+let image = 0;
+let value;
+
 function displayNumber(number) {
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
@@ -16,14 +19,27 @@ function displayNumber(number) {
   }
 }
 
-function setup() {
+async function setup() {
   createCanvas(150, 270);
+  frameRate(2);
 
-  number = numbersData.getRandomNumber();
+  model = await tf.loadModel('training/models/model.json')
+
+  value = createP("This number is a");
+  value.class("number");
+
+  // number = numbersData.getRandomNumber();
+  trainingData = numbersData.generateData(300)
 }
 
 function draw() {
   background(51);
 
-  displayNumber(number)
+  displayNumber(trainingData[image].data)
+  value.html("This number is a " + trainingData[image].value);
+
+  image++;
+  if(image >= trainingData.length) {
+    image = 0
+  }
 }

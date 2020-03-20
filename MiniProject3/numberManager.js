@@ -118,28 +118,67 @@ class numberManager {
     const number = Math.round(random(9))
     switch (number) {
       case 0:
-        return this.shuffle(this.getZero())
+        return {"data": this.shuffle(this.getZero()), "value": number}
       case 1:
-        return this.shuffle(this.getOne())
+        return {"data": this.shuffle(this.getOne()), "value": number}
       case 2:
-        return this.shuffle(this.getTwo())
+        return {"data": this.shuffle(this.getTwo()), "value": number}
       case 3:
-        return this.shuffle(this.getThree())
+        return {"data": this.shuffle(this.getThree()), "value": number}
       case 4:
-        return this.shuffle(this.getFour())
+        return {"data": this.shuffle(this.getFour()), "value": number}
       case 5:
-        return this.shuffle(this.getFive())
+        return {"data": this.shuffle(this.getFive()), "value": number}
       case 6:
-        return this.shuffle(this.getSix())
+        return {"data": this.shuffle(this.getSix()), "value": number}
       case 7:
-        return this.shuffle(this.getSeven())
+        return {"data": this.shuffle(this.getSeven()), "value": number}
       case 8:
-        return this.shuffle(this.getEight())
+        return {"data": this.shuffle(this.getEight()), "value": number}
       case 9:
-        return this.shuffle(this.getNine())
+        return {"data": this.shuffle(this.getNine()), "value": number}
 
       default:
         break;
     }
+  }
+
+  getShuffledNumber(number) {
+    switch (number) {
+      case 0:
+        return {"data": this.shuffle(this.getZero()), "value": number}
+      case 1:
+        return {"data": this.shuffle(this.getOne()), "value": number}
+      case 2:
+        return {"data": this.shuffle(this.getTwo()), "value": number}
+      case 3:
+        return {"data": this.shuffle(this.getThree()), "value": number}
+      case 4:
+        return {"data": this.shuffle(this.getFour()), "value": number}
+      case 5:
+        return {"data": this.shuffle(this.getFive()), "value": number}
+      case 6:
+        return {"data": this.shuffle(this.getSix()), "value": number}
+      case 7:
+        return {"data": this.shuffle(this.getSeven()), "value": number}
+      case 8:
+        return {"data": this.shuffle(this.getEight()), "value": number}
+      case 9:
+        return {"data": this.shuffle(this.getNine()), "value": number}
+
+      default:
+        break;
+    }
+  }
+
+  generateData(quantity) {
+    let trainingData = [];
+
+    for (let index = 0; index < quantity; index++) {
+      trainingData.push(this.getShuffledNumber(Math.floor(index/(quantity/10))));
+    }
+
+    console.log(JSON.stringify(trainingData))
+    return trainingData;
   }
 }
