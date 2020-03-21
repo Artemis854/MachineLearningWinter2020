@@ -23,13 +23,11 @@ async function setup() {
   createCanvas(150, 270);
   frameRate(2);
 
-  model = await tf.loadModel('training/models/model.json')
-
   value = createP("This number is a");
   value.class("number");
 
   // number = numbersData.getRandomNumber();
-  trainingData = numbersData.generateData(300)
+  trainingData = numbersData.generateData(30)
 }
 
 function draw() {
